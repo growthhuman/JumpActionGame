@@ -301,6 +301,8 @@ class GameScreen extends ScreenAdapter {
     }
 
     private void updateGameOver() {
-
+        if(Gdx.input.justTouched()){
+            mGame.setScreen(new ResultScreen(mGame,mScore));
+        }
     }
 }
