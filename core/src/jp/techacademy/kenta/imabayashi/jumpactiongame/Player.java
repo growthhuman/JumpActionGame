@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
  */
 
 public class Player extends GameObject {
+    //ToDo 1.0fのfって何？？
     //横幅、高さ
     public static final float PLAYER_WIDTH = 1.0f;
     public static final float PLAYER_HEIGHT = 1.0f;
@@ -61,4 +62,7 @@ public class Player extends GameObject {
         mState = PLAYER_STATE_JUMP;
     }
 
+    public void hitEnemy() {
+        mState = PLAYER_STATE_JUMP;
+    }
 }

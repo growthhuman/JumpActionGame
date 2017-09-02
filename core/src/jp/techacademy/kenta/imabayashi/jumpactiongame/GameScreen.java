@@ -18,6 +18,28 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import java.util.ArrayList;
 import java.util.Random;
 
+
+
+//
+//ジャンプアクションゲームに敵キャラを出現させましょう。
+//
+//●本レッスンで制作した JumpActionGame プロジェクトを基に制作してください
+//〇ゲーム中に敵キャラ(Enemyクラス)を出現させてください
+//●敵キャラに衝突したときに、ゲームを終了させてください
+//〇また、敵キャラと衝突した際に衝突音を出してください（音はフリーのものなどを探してみましょう）
+//要件を満たすものであれば、敵キャラや出現方法はどのようなものでも構いません。
+//例えば、BGMを鳴らしたり、ゲームの難易度を調整したり、ランキング画面を作ってみたり、色々とあるはずです。
+//
+//ヒント
+//
+//音声ファイルや再生についてのヒントです。
+//
+//●音声ファイルはandroid/assets/data/mysound.mp3のようにandroid/assetsに保存しましょう
+//Sound-effects
+//Sound
+//課題を提出する
+
+
 /**
  * Created by kenta on 2017/08/31.
  */
@@ -53,6 +75,7 @@ class GameScreen extends ScreenAdapter {
     ArrayList<Star> mStars;
     Ufo mUfo;
     Player mPlayer;
+    Enemy mEnemy;
 
     float mHeightSoFar;
     int mGameState;
@@ -134,6 +157,10 @@ class GameScreen extends ScreenAdapter {
             //Player
             mPlayer.draw(mGame.batch);
 
+            //ToDo　ひとまず描画
+            //Enemy
+            mEnemy.draw(mGame.batch);
+
             mGame.batch.end();
 
         // スコア表示
@@ -158,6 +185,8 @@ class GameScreen extends ScreenAdapter {
         Texture starTexture = new Texture("star.png");
         Texture playerTexture = new Texture("uma.png");
         Texture ufoTexture = new Texture("ufo.png");
+        //Todo umaでいけるかtry
+        Texture enemyTexture = new Texture("uma.png");
 
         // StepとStarをゴールの高さまで配置していく
         float y = 0;
@@ -188,6 +217,14 @@ class GameScreen extends ScreenAdapter {
         // ゴールのUFOを配置
         mUfo = new Ufo(ufoTexture, 0, 0, 120, 74);
         mUfo.setPosition(WORLD_WIDTH / 2 - Ufo.UFO_WIDTH / 2, y);
+
+        //ToDO　複数配置はあとで
+        // 敵を配置(
+        mEnemy = new Enemy(enemyTexture, 0, 0, 72, 72);
+        //ToDO あとで帰る。敵邪魔
+        mEnemy.setPosition(5,5);
+
+
     }
 
     // それぞれのオブジェクトの状態をアップデートする
@@ -297,6 +334,12 @@ class GameScreen extends ScreenAdapter {
                     break;
                 }
             }
+        }
+        //　敵との当たり判定
+        if(mPlayer.getBoundingRectangle().overlaps(mEnemy.getBoundingRectangle())){
+            //ToDo フラグ持たせてフラグたったら死亡
+            Gdx.app.log("MyTag", "my informative message");
+            mGameState = GAME_STATE_GAMEOVER;
         }
     }
 
